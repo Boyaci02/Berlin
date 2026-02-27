@@ -14,8 +14,7 @@ import {
   Clock, 
   Mail, 
   ExternalLink,
-  ChevronRight,
-  Truck
+  ChevronRight
 } from 'lucide-react';
 
 // ... (TikTokIcon remains the same)
@@ -66,7 +65,6 @@ function Navbar() {
 
   const navLinks = [
     { name: 'Hem', to: '/' },
-    { name: 'Foodtruck', to: '/foodtruck' },
     { name: 'Hitta oss', to: '/#locations' },
     { name: 'Öppettider', to: '/#hours' },
   ];
@@ -281,16 +279,12 @@ function HomePage() {
             muted
             loop
             playsInline
+            preload="auto"
             className="w-full h-full object-cover opacity-50"
             poster="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b77bb50b97573fd31958.jpg"
           >
+            <source src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b91f9a0c1889e916cfaa.mov" type="video/mp4" />
             <source src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b91f9a0c1889e916cfaa.mov" type="video/quicktime" />
-            <img 
-              src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b77bb50b97573fd31958.jpg" 
-              alt="Döner Background" 
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#0a0a0a]"></div>
         </div>
@@ -327,12 +321,6 @@ function HomePage() {
             >
               Beställ <ChevronRight className="w-3 h-3 sm:w-5 sm:h-5" />
             </a>
-            <Link 
-              to="/foodtruck"
-              className="flex-1 sm:flex-none bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 sm:px-10 h-[44px] sm:h-[54px] rounded-full text-xs sm:text-lg font-black uppercase tracking-tighter flex items-center justify-center gap-1 sm:gap-2 transition-all border border-white/10 active:scale-95"
-            >
-              Foodtruck
-            </Link>
           </motion.div>
         </div>
 
@@ -348,6 +336,25 @@ function HomePage() {
         </motion.div>
       </section>
 
+      {/* Infinite Loop Section */}
+      <section className="bg-red-600 py-6 overflow-hidden border-y border-white/10 relative z-20">
+        <div className="flex whitespace-nowrap animate-scroll w-max">
+          {[...Array(30)].map((_, i) => (
+            <div key={i} className="flex items-center gap-16 px-8 flex-shrink-0">
+              <img 
+                src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
+                alt="Berlin Döner" 
+                className="h-8 md:h-12 w-auto brightness-0 invert opacity-90 flex-shrink-0"
+                referrerPolicy="no-referrer"
+              />
+              <span className="text-white text-2xl md:text-4xl font-black uppercase tracking-tighter italic flex-shrink-0">
+                #DönerDreams
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* About Section */}
       <section className="py-16 md:py-24 px-6 bg-white text-black overflow-hidden">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -359,15 +366,17 @@ function HomePage() {
             </h2>
             <div className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 space-y-4">
               <p>
-                I hjärtat av Linköping serverar vi döner inspirerad av Berlins gator – där kvalitet alltid går först. 
-                Vårt kött rostas långsamt, våra såser görs från grunden och varje ingrediens är noggrant utvald.
+                I hjärtat av Linköping serverar vi döner inspirerad av Berlins gator- där kvalitet alltid går först.
+              </p>
+              <p>
+                Vårt kött rostas långsamt för att få den unika smaken och perfekt saftighet. Våra såser görs från grunden efter egna recept, och varje ingrediens väljs med omsorg för att säkerställa högsta kvalitet.
               </p>
               <p>
                 Det handlar inte bara om snabbmat.<br />
                 Det handlar om hantverk, tradition och respekt för smaken.
               </p>
               <p className="font-bold text-black">
-                Berlin Döner är platsen där äkta döner möter Linköping.
+                Berlin Döner är platsen där äkta döner möter Linköping – och skapar en smakupplevelse.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4 md:gap-8">
@@ -466,193 +475,6 @@ function HomePage() {
   );
 }
 
-function FoodtruckPage() {
-  const [formData, setFormData] = useState({
-    namn: '',
-    telefon: '',
-    email: '',
-    antal: '',
-    datum: '',
-    adress: '',
-    meddelande: ''
-  });
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    
-    if (parseInt(formData.antal) < 50) {
-      setError('Minst 50 personer krävs för bokning av foodtruck.');
-      return;
-    }
-    
-    setError('');
-    
-    const subject = `Bokningsförfrågan Foodtruck - ${formData.namn}`;
-    const body = `
-Namn: ${formData.namn}
-Telefon: ${formData.telefon}
-E-post: ${formData.email}
-Antal personer: ${formData.antal}
-Datum: ${formData.datum}
-Adress: ${formData.adress}
-
-Meddelande:
-${formData.meddelande}
-    `.trim();
-
-    const mailtoUrl = `mailto:info@berlindoner.se?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoUrl;
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  return (
-    <section className="pt-32 pb-24 px-6 bg-[#0a0a0a] min-h-screen relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-        <Truck className="absolute -right-20 -top-20 text-white" size={400} />
-      </div>
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-red-600/10 text-red-500 px-4 py-2 rounded-full mb-6 border border-red-600/20">
-            <Truck size={18} />
-            <span className="text-xs md:text-sm font-bold uppercase tracking-widest">Event & Catering</span>
-          </div>
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-8 italic uppercase">FOODTRUCK</h1>
-          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Vill du ha Berlin Döner till ditt event, bröllop eller företagfest? 
-            Vår foodtruck rullar ut och serverar Linköpings bästa döner direkt till dina gäster. 
-            <span className="block mt-2 text-red-500 font-bold uppercase text-sm tracking-widest">Minst 50 personer krävs för bokning</span>
-          </p>
-        </div>
-
-        <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="bg-white/5 p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Namn</label>
-                <input 
-                  required
-                  type="text" 
-                  name="namn"
-                  value={formData.namn}
-                  onChange={handleChange}
-                  placeholder="Ditt fullständiga namn"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition-colors text-white"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Telefon</label>
-                <input 
-                  required
-                  type="tel" 
-                  name="telefon"
-                  value={formData.telefon}
-                  onChange={handleChange}
-                  placeholder="Ditt telefonnummer"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition-colors text-white"
-                />
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">E-post</label>
-                <input 
-                  required
-                  type="email" 
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="din@mail.se"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition-colors text-white"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Antal personer (minst 50)</label>
-                <input 
-                  required
-                  type="number" 
-                  name="antal"
-                  min="50"
-                  value={formData.antal}
-                  onChange={handleChange}
-                  placeholder="50+"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition-colors text-white"
-                />
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Datum</label>
-                <input 
-                  required
-                  type="date" 
-                  name="datum"
-                  value={formData.datum}
-                  onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition-colors text-white [color-scheme:dark]"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Adress för event</label>
-                <input 
-                  required
-                  type="text" 
-                  name="adress"
-                  value={formData.adress}
-                  onChange={handleChange}
-                  placeholder="Gata, postnummer, ort"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition-colors text-white"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2 mb-8">
-              <label className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Övrig information</label>
-              <textarea 
-                name="meddelande"
-                value={formData.meddelande}
-                onChange={handleChange}
-                placeholder="Berätta mer om ditt event..."
-                rows={4}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition-colors text-white resize-none"
-              ></textarea>
-            </div>
-
-            {error && (
-              <div className="mb-6 p-4 bg-red-600/20 border border-red-600/50 rounded-xl text-red-500 text-sm font-bold text-center">
-                {error}
-              </div>
-            )}
-
-            <button 
-              type="submit"
-              className="w-full bg-red-600 hover:bg-red-700 text-white h-[44px] flex items-center justify-center rounded-full text-sm font-black uppercase tracking-tighter transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Skicka
-            </button>
-            
-            <p className="text-center text-gray-500 text-xs mt-6 uppercase tracking-widest">
-              Genom att skicka formuläret öppnas ditt e-postprogram för att skicka förfrågan till info@berlindoner.se
-            </p>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function App() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-red-600 selection:text-white">
@@ -660,7 +482,6 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/foodtruck" element={<FoodtruckPage />} />
         </Routes>
       </main>
       <Footer />
