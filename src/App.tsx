@@ -65,6 +65,7 @@ function Navbar() {
 
   const navLinks = [
     { name: 'Hem', to: '/' },
+    { name: 'Meny', to: '/meny' },
     { name: 'Hitta oss', to: '/#locations' },
     { name: 'Öppettider', to: '/#hours' },
   ];
@@ -73,7 +74,7 @@ function Navbar() {
     <>
       <nav 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled || isMenuOpen ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-transparent py-6'
+          scrolled || isMenuOpen || location.pathname !== '/' ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-transparent py-6'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -475,6 +476,489 @@ function HomePage() {
   );
 }
 
+function MenuPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const menuCategories = [
+    {
+      title: "NYHETER!",
+      items: [
+        {
+          name: "NYHET! Döner Svensk Klassiker",
+          description: "Ingår dryck!",
+          price: "115 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/menybild_svensk_klassiker.png"
+        },
+        {
+          name: "PitaGyro",
+          description: "Smakrik wrap med gyros! Hemmagjord tzatziki ingår",
+          price: "Från 125 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/menybild_pitagyro.png"
+        },
+        {
+          name: "El Mexico Döner",
+          description: "Smältost, Jalapeños, Rödlök, Sallad, Rödkål, Tomat, Gurka",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/El_mexico1.jpg"
+        },
+        {
+          name: "Lahmaucun Döner",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka, Citronsaft",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Lahmaucun1.jpg"
+        },
+        {
+          name: "Berliner Döner",
+          description: "Stekta Grönsaker Auberginre, Squash, Röd Grön Gul Paprika, Potatis, Morötter, Sallad...",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Berliner1.jpg"
+        },
+        {
+          name: "Big Döner Mix Tallrik",
+          description: "Ditt val av protein med sallad, rödkål, lök, tomat, gurka och valfri sås",
+          price: "Från 165 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Big_doner_mix_tallrik.jpg"
+        },
+        {
+          name: "Big Döner Mix Bröd",
+          description: "Ditt val av protein med sallad, rödkål, lök, tomat, gurka och valfri sås",
+          price: "Från 155 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/9.jpg"
+        },
+        {
+          name: "Snacks Box & Pommes",
+          description: "Ditt val av sås",
+          price: "99 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/IMG_9276.jpg"
+        }
+      ]
+    },
+    {
+      title: "Kalv",
+      items: [
+        {
+          name: "Kalv Box",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Box_Doner.png"
+        },
+        {
+          name: "Kalv Bröd",
+          description: "Krispigt bröd från Berlin, sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Kalv_med_brod.png"
+        },
+        {
+          name: "Kalv Rulle",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/rulle-kyckling.png"
+        },
+        {
+          name: "Kalv Tallrik",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Kalvtallrik.png"
+        },
+        {
+          name: "Kalv Sallad",
+          description: "Sallad, rödkål, tomat, gurka, lök, majs, fetaost, peperoni, granatäpplesirap och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Kalvsallad.png"
+        }
+      ]
+    },
+    {
+      title: "Karré",
+      items: [
+        {
+          name: "Karré Box",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Box_doner_karre.png"
+        },
+        {
+          name: "Karré Bröd",
+          description: "Krispigt bröd från Berlin, sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Karre_med_brod.png"
+        },
+        {
+          name: "Karré Rulle",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/rulle-karre.png"
+        },
+        {
+          name: "Karré Tallrik",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Karre_tallrik.png"
+        },
+        {
+          name: "Karré Sallad",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Karre_sallad.png"
+        }
+      ]
+    },
+    {
+      title: "Kyckling",
+      items: [
+        {
+          name: "Kyckling Box",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/21.jpg"
+        },
+        {
+          name: "Kyckling Bröd",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/16.jpg"
+        },
+        {
+          name: "Kyckling Rulle",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/rulle-kyckling.png"
+        },
+        {
+          name: "Kyckling Tallrik",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/36.jpg"
+        },
+        {
+          name: "Kyckling Sallad",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/10.jpg"
+        }
+      ]
+    },
+    {
+      title: "Falafel",
+      items: [
+        {
+          name: "Falafel Box",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Falafel_box.png"
+        },
+        {
+          name: "Falafel Bröd",
+          description: "Eget bröd från Berlin, egengjord falafel, sallad, rödkål, lök, tomat, gurka och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Falafel_med_brod.png"
+        },
+        {
+          name: "Falafel Rulle",
+          description: "Egengjord falafel, sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/rulle-falafel.png"
+        },
+        {
+          name: "Falafel Tallrik",
+          description: "Sallad, rödkål, tomat, gurka, lök, majs, fetaost, peperoni, granatäpplesirap och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Falafel_tallrik_pommes.png"
+        },
+        {
+          name: "Falafel Sallad",
+          description: "Sallad, rödkål, tomat, gurka, lök, majs, fetaost, peperoni, granatäpplesirap och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Falafel_Sallad.png"
+        }
+      ]
+    },
+    {
+      title: "Halloumi",
+      items: [
+        {
+          name: "Halloumi Box",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Halloumi_box.png"
+        },
+        {
+          name: "Halloumi Bröd",
+          description: "Krispigt bröd från Berlin, sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 135 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Halloumi_med_brod.png"
+        },
+        {
+          name: "Halloumi Rulle",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Halloumi_Rulle.png"
+        },
+        {
+          name: "Halloumi Tallrik",
+          description: "Sallad, rödkål, tomat, gurka, lök och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Halloumin_tallrik_med_pommes.png"
+        },
+        {
+          name: "Halloumi Sallad",
+          description: "Sallad, rödkål, tomat, gurka, lök, majs, fetaost, peperoni, granatäpplesirap och valfri sås",
+          price: "Från 139 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Halloumi_Sallad.png"
+        }
+      ]
+    },
+    {
+      title: "Big Döner Mix",
+      items: [
+        {
+          name: "Big Döner Mix Tallrik",
+          description: "Ditt val av protein med sallad, rödkål, lök, tomat, gurka och valfri sås",
+          price: "Från 165 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Big_doner_mix_tallrik.jpg"
+        },
+        {
+          name: "Big Döner Mix Bröd",
+          description: "Ditt val av protein med sallad, rödkål, lök, tomat, gurka och valfri sås",
+          price: "Från 155 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/9.jpg"
+        }
+      ]
+    },
+    {
+      title: "Kids",
+      items: [
+        {
+          name: "Kids Döner - Pommes",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 85 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Kids_med_pommes.png"
+        },
+        {
+          name: "Kids Döner - Ris",
+          description: "Sallad, Rödkål, Lök, Tomat, Gurka",
+          price: "Från 85 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Kids_med_ris.png"
+        }
+      ]
+    },
+    {
+      title: "Tillbehör",
+      items: [
+        {
+          name: "Kampanj Spicy BBQ Wings 6st",
+          description: "",
+          price: "49 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/3.jpg"
+        },
+        {
+          name: "Pommes",
+          description: "",
+          price: "45 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/17.jpg"
+        },
+        {
+          name: "Cheese & Pommes",
+          description: "",
+          price: "65 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Cheece_and_frites.png"
+        },
+        {
+          name: "Bröd",
+          description: "",
+          price: "25 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Brod.jpg"
+        },
+        {
+          name: "Nacho Cheese Triangles",
+          description: "Välj mellan 4st eller 6st",
+          price: "Från 45 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/5.jpg"
+        },
+        {
+          name: "Onion Rings",
+          description: "Välj mellan 4st eller 6st",
+          price: "Från 40 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/4.jpg"
+        },
+        {
+          name: "Chicken Fingers",
+          description: "Välj mellan 4st eller 6st",
+          price: "Från 65 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Chicken_Fingers.jpg"
+        },
+        {
+          name: "Chicken Kicks Sweet",
+          description: "Välj mellan 4st eller 6st",
+          price: "Från 45 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Chicken_Slide_Tenders_(Osaker_pa_namn).jpg"
+        },
+        {
+          name: "Mozzarella Sticks",
+          description: "Välj mellan 4st eller 6st",
+          price: "Från 45 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/2.jpg"
+        },
+        {
+          name: "Spicy BBQ Wings",
+          description: "Välj mellan 4st eller 6st",
+          price: "Från 50 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/3.jpg"
+        },
+        {
+          name: "Chili Cheese",
+          description: "Välj mellan 4st eller 6st",
+          price: "Från 40 kr",
+          image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/6.jpg"
+        }
+      ]
+    },
+    {
+      title: "Dipsåser",
+      items: [
+        { name: "Curry Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Curry.png" },
+        { name: "Döner Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Sesam_och_doner_sas.png" },
+        { name: "Vitlök Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Vitlok.png" },
+        { name: "Chili Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Chillisas.png" },
+        { name: "Sweet & Sour Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Sweatsour.png" },
+        { name: "Sesam Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Sesam_och_doner_sas.png" },
+        { name: "Örter Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Ortsas.png" },
+        { name: "Tzatziki Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Tzatziki.png" },
+        { name: "VEGAN Döner Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Sesam_och_doner_sas.png" },
+        { name: "VEGAN Vitlök Dip", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Vitlok.png" }
+      ]
+    },
+    {
+      title: "Drycker",
+      items: [
+        { name: "Coca-Cola Original 33cl", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Coca-Cola_Original_33cl.png" },
+        { name: "Coca-Cola Zero 33cl", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Coca-Cola_Zero_33cl.png" },
+        { name: "Fanta Orange 33cl", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Fanta_Orange_33cl.png" },
+        { name: "Fanta Exotic 33cl", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Fanta_Exotic_33cl.png" },
+        { name: "Sprite zero 33cl", description: "", price: "25 kr", image: "https://qopla.s3-eu-west-1.amazonaws.com/foodIcons/Sprite_Zero_33cl.jpg" },
+        { name: "Bonaqua Naturell 33cl", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Bonaqua_Naturell_33cl.png" },
+        { name: "Bonaqua Citron/Lime 33cl", description: "", price: "25 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Bonaqua_Citron_Lime_33cl.png" },
+        { name: "Monster Energy 50cl", description: "", price: "35 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Monster_Energy_50cl.png" },
+        { name: "Monster Energy Ultra 50cl", description: "", price: "35 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Monster_Energy_Ultra_50cl.png" },
+        { name: "Monster Energy Mango Loco 50cl", description: "", price: "35 kr", image: "https://s3-eu-west-1.amazonaws.com/qopla/65e2c8c612d1552cbc48948f/Gallery/medium/Monster_Energy_Mango_Loco_50cl.png" }
+      ]
+    }
+  ];
+
+  return (
+    <section className="pt-32 pb-24 min-h-screen bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
+          <div>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic leading-none mb-4">VÅR MENY</h1>
+            <div className="h-2 w-24 bg-red-600"></div>
+          </div>
+          <p className="text-gray-400 max-w-md text-lg">
+            Utforska Linköpings mest autentiska tyska döner. Varje rätt är tillagad med omsorg och passion.
+          </p>
+        </div>
+
+        <div className="space-y-20">
+          {menuCategories.map((category) => (
+            <div key={category.title}>
+              <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase mb-8 flex items-center gap-4">
+                <span className="text-red-600">/</span> {category.title}
+              </h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {category.items.map((item) => (
+                  <div key={item.name} className="group bg-white/5 border border-white/10 rounded-xl p-3 md:p-4 hover:border-red-600/50 transition-all duration-300 flex gap-4 items-start relative">
+                    <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden rounded-lg bg-white/5">
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="flex-grow flex flex-col min-h-[80px] md:min-h-[96px]">
+                      <h3 className="text-sm md:text-base font-bold tracking-tight mb-1 group-hover:text-red-500 transition-colors line-clamp-1">{item.name}</h3>
+                      <p className="text-gray-500 text-[11px] md:text-xs leading-tight line-clamp-2 mb-2">{item.description}</p>
+                      <div className="mt-auto flex justify-end">
+                        <p className="text-xs md:text-sm font-black text-white">{item.price}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-24 text-center">
+          <a 
+            href={orderUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex bg-red-600 hover:bg-red-700 text-white px-12 py-5 rounded-full text-xl font-black uppercase tracking-tighter transition-all transform hover:scale-105 active:scale-95 shadow-xl shadow-red-600/20"
+          >
+            Beställ Online Nu
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GallerySection() {
+  const galleryImages = [
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d7bb617a73fc008ba3e.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30e26167da44e736ac25f.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d1b753f15aac92a3006.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30de1b617a7a9b908cbce.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d3ab617a7598508ace1.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30cf2167da425e76a8053.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d8d95735c5426fba3ff.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30e01b617a729af08d402.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d5b167da4075c6a94c2.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30dba167da46aef6aa94d.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d10003fd876f8297dba.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30df2167da491156ab4a6.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d32753f15cd022a3433.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30cf6753f1577f52a2941.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30dc795735c2a1bfbae85.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d4b753f15d4cf2a38ab.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30e05753f1522af2a5a86.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d27167da4f8de6a8b9e.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d06003fd89d98297b76.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d9b167da4ea9a6aa3f5.jpg",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30dab003fd85ce8299b48.jpg"
+  ];
+
+  // Duplicate the array for infinite scroll
+  const displayImages = [...galleryImages, ...galleryImages];
+
+  return (
+    <section className="py-20 bg-black overflow-hidden border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6 mb-12">
+        <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-4">Galleri</h2>
+        <div className="h-1 w-20 bg-red-600"></div>
+      </div>
+      
+      <div className="flex whitespace-nowrap animate-scroll w-max">
+        {displayImages.map((src, i) => (
+          <div key={i} className="px-2 flex-shrink-0">
+            <div className="w-[280px] md:w-[400px] aspect-[4/5] overflow-hidden rounded-2xl group relative">
+              <img 
+                src={src} 
+                alt={`Gallery ${i}`} 
+                className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-110"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-red-600 selection:text-white">
@@ -482,7 +966,9 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/meny" element={<MenuPage />} />
         </Routes>
+        <GallerySection />
       </main>
       <Footer />
     </div>
