@@ -14,7 +14,8 @@ import {
   Clock, 
   Mail, 
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  ChevronDown
 } from 'lucide-react';
 
 // ... (TikTokIcon remains the same)
@@ -477,9 +478,17 @@ function HomePage() {
 }
 
 function MenuPage() {
+  const [openCategories, setOpenCategories] = useState<string[]>([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const toggleCategory = (title: string) => {
+    setOpenCategories(prev => 
+      prev.includes(title) ? prev.filter(t => t !== title) : [...prev, title]
+    );
+  };
 
   const menuCategories = [
     {
@@ -860,35 +869,62 @@ function MenuPage() {
           </p>
         </div>
 
-        <div className="space-y-20">
-          {menuCategories.map((category) => (
-            <div key={category.title}>
-              <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase mb-8 flex items-center gap-4">
-                <span className="text-red-600">/</span> {category.title}
-              </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {category.items.map((item) => (
-                  <div key={item.name} className="group bg-white/5 border border-white/10 rounded-xl p-3 md:p-4 hover:border-red-600/50 transition-all duration-300 flex gap-4 items-start relative">
-                    <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden rounded-lg bg-white/5">
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                    <div className="flex-grow flex flex-col min-h-[80px] md:min-h-[96px]">
-                      <h3 className="text-sm md:text-base font-bold tracking-tight mb-1 group-hover:text-red-500 transition-colors line-clamp-1">{item.name}</h3>
-                      <p className="text-gray-500 text-[11px] md:text-xs leading-tight line-clamp-2 mb-2">{item.description}</p>
-                      <div className="mt-auto flex justify-end">
-                        <p className="text-xs md:text-sm font-black text-white">{item.price}</p>
+        <div className="space-y-6 md:space-y-8">
+          {menuCategories.map((category) => {
+            const isOpen = openCategories.includes(category.title);
+            return (
+              <div key={category.title} className="border-b border-white/10 pb-6 md:pb-8">
+                <button 
+                  onClick={() => toggleCategory(category.title)}
+                  className="w-full text-left flex items-center justify-between group"
+                >
+                  <h2 className="text-2xl md:text-4xl font-black tracking-tighter uppercase flex items-center gap-4">
+                    <span className="text-red-600">/</span> {category.title}
+                  </h2>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="w-6 h-6 md:w-8 md:h-8 text-gray-500 group-hover:text-red-600 transition-colors" />
+                  </motion.div>
+                </button>
+                
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 pt-8">
+                        {category.items.map((item) => (
+                          <div key={item.name} className="group bg-white/5 border border-white/10 rounded-xl p-3 md:p-4 hover:border-red-600/50 transition-all duration-300 flex gap-4 items-start relative">
+                            <div className={`w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden rounded-lg ${item.name === "Snacks Box & Pommes" ? "bg-white/5" : "bg-white"}`}>
+                              <img 
+                                src={item.image} 
+                                alt={item.name} 
+                                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                            <div className="flex-grow flex flex-col min-h-[80px] md:min-h-[96px]">
+                              <h3 className="text-sm md:text-base font-bold tracking-tight mb-1 group-hover:text-red-500 transition-colors line-clamp-1">{item.name}</h3>
+                              <p className="text-gray-500 text-[11px] md:text-xs leading-tight line-clamp-2 mb-2">{item.description}</p>
+                              <div className="mt-auto flex justify-end">
+                                <p className="text-xs md:text-sm font-black text-white">{item.price}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    </div>
-                  </div>
-                ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-24 text-center">
