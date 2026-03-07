@@ -340,7 +340,7 @@ function HomePage() {
 
       {/* Infinite Loop Section */}
       <section className="bg-red-600 py-6 overflow-hidden border-y border-white/10 relative z-20">
-        <div className="flex w-max animate-scroll-fast">
+        <div className="flex w-max animate-scroll-very-slow">
           <div className="flex items-center gap-16 px-8">
             {[...Array(15)].map((_, i) => (
               <div key={i} className="flex items-center gap-16">
