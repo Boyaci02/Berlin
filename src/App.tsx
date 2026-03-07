@@ -340,20 +340,37 @@ function HomePage() {
 
       {/* Infinite Loop Section */}
       <section className="bg-red-600 py-6 overflow-hidden border-y border-white/10 relative z-20">
-        <div className="flex whitespace-nowrap animate-scroll w-max">
-          {[...Array(30)].map((_, i) => (
-            <div key={i} className="flex items-center gap-16 px-8 flex-shrink-0">
-              <img 
-                src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
-                alt="Berlin Döner" 
-                className="h-8 md:h-12 w-auto brightness-0 invert opacity-90 flex-shrink-0"
-                referrerPolicy="no-referrer"
-              />
-              <span className="text-white text-2xl md:text-4xl font-black uppercase tracking-tighter italic flex-shrink-0">
-                #DönerDreams
-              </span>
-            </div>
-          ))}
+        <div className="flex w-max animate-scroll-fast">
+          <div className="flex items-center gap-16 px-8">
+            {[...Array(15)].map((_, i) => (
+              <div key={i} className="flex items-center gap-16">
+                <img 
+                  src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
+                  alt="Berlin Döner" 
+                  className="h-8 md:h-12 w-auto brightness-0 invert opacity-90 flex-shrink-0"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="text-white text-2xl md:text-4xl font-black uppercase tracking-tighter italic flex-shrink-0">
+                  #DönerDreams
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-16 px-8">
+            {[...Array(15)].map((_, i) => (
+              <div key={i} className="flex items-center gap-16">
+                <img 
+                  src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
+                  alt="Berlin Döner" 
+                  className="h-8 md:h-12 w-auto brightness-0 invert opacity-90 flex-shrink-0"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="text-white text-2xl md:text-4xl font-black uppercase tracking-tighter italic flex-shrink-0">
+                  #DönerDreams
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -957,9 +974,6 @@ function GallerySection() {
     "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac5905618c8d69a255ed04.webp"
   ];
 
-  // Duplicate the array for infinite scroll
-  const displayImages = [...galleryImages, ...galleryImages];
-
   return (
     <section className="py-20 bg-black overflow-hidden border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 mb-12">
@@ -967,19 +981,35 @@ function GallerySection() {
         <div className="h-1 w-20 bg-red-600"></div>
       </div>
       
-      <div className="flex whitespace-nowrap animate-scroll w-max">
-        {displayImages.map((src, i) => (
-          <div key={i} className="px-2 flex-shrink-0">
-            <div className="w-[280px] md:w-[400px] aspect-[4/5] overflow-hidden rounded-2xl group relative">
-              <img 
-                src={src} 
-                alt={`Gallery ${i}`} 
-                className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-110"
-                referrerPolicy="no-referrer"
-              />
+      <div className="flex w-max animate-scroll-slow">
+        <div className="flex shrink-0">
+          {galleryImages.map((src, i) => (
+            <div key={`track1-${i}`} className="px-2 flex-shrink-0">
+              <div className="w-[280px] md:w-[400px] aspect-[4/5] overflow-hidden rounded-2xl group relative">
+                <img 
+                  src={src} 
+                  alt={`Gallery ${i}`} 
+                  className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="flex shrink-0">
+          {galleryImages.map((src, i) => (
+            <div key={`track2-${i}`} className="px-2 flex-shrink-0">
+              <div className="w-[280px] md:w-[400px] aspect-[4/5] overflow-hidden rounded-2xl group relative">
+                <img 
+                  src={src} 
+                  alt={`Gallery ${i}`} 
+                  className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
