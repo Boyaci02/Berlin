@@ -944,27 +944,17 @@ function MenuPage() {
 
 function GallerySection() {
   const galleryImages = [
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d7bb617a73fc008ba3e.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30e26167da44e736ac25f.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d1b753f15aac92a3006.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30de1b617a7a9b908cbce.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d3ab617a7598508ace1.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30cf2167da425e76a8053.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d8d95735c5426fba3ff.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30e01b617a729af08d402.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d5b167da4075c6a94c2.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30dba167da46aef6aa94d.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d10003fd876f8297dba.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30df2167da491156ab4a6.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d32753f15cd022a3433.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30cf6753f1577f52a2941.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30dc795735c2a1bfbae85.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d4b753f15d4cf2a38ab.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30e05753f1522af2a5a86.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d27167da4f8de6a8b9e.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d06003fd89d98297b76.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30d9b167da4ea9a6aa3f5.jpg",
-    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a30dab003fd85ce8299b48.jpg"
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac58b336702f4ca9449e51.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac587db003fac987160c4a.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac5905618c8d7ae355ed00.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac587d7bdf380297cadf77.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac58b3b003faf9761615e5.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac59047bdf3852c4caf6fe.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac5895618c8d6e2c55da76.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac587e36702f53584493f8.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac58b37bdf38e9a9cae97b.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac587d618c8d7a5c55d4b7.webp",
+    "https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69ac5905618c8d69a255ed04.webp"
   ];
 
   // Duplicate the array for infinite scroll
