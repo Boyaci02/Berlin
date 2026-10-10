@@ -81,7 +81,9 @@ function Navbar() {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <Link to="/" className="flex items-center">
             <img 
-              src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
+              src="/img/logo.webp"
+              width={625}
+              height={250} 
               alt="Berlin Döner Logo" 
               className="h-10 sm:h-12 w-auto object-contain"
               referrerPolicy="no-referrer"
@@ -131,6 +133,7 @@ function Navbar() {
             </a>
             <button 
               className="text-white p-1"
+              aria-label={isMenuOpen ? "Stäng meny" : "Öppna meny"}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -205,20 +208,22 @@ function Footer() {
         <div className="col-span-2">
           <Link to="/" className="flex items-center mb-8">
             <img 
-              src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
+              src="/img/logo.webp"
+              width={625}
+              height={250} 
               alt="Berlin Döner Logo" 
               className="h-12 md:h-16 w-auto object-contain"
               referrerPolicy="no-referrer"
             />
           </Link>
-          <p className="text-gray-500 max-w-md leading-relaxed">
+          <p className="text-gray-400 max-w-md leading-relaxed">
             Vi är stolta över att servera Linköping med den mest autentiska tyska dönern. 
             Kvalitet, passion och tradition i varje tugga.
           </p>
         </div>
         
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-red-500 mb-6">Kontakt</h4>
+          <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-red-500 mb-6">Kontakt</h3>
           <ul className="space-y-4">
             <li>
               <a href="mailto:info@berlindoner.se" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
@@ -233,7 +238,7 @@ function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-red-500 mb-6">Följ Oss</h4>
+          <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-red-500 mb-6">Följ Oss</h3>
           <div className="flex gap-4">
             {socialLinks.map((social) => (
               <a 
@@ -251,7 +256,7 @@ function Footer() {
         </div>
       </div>
       
-      <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4 text-sm text-gray-600">
+      <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4 text-sm text-gray-400">
         <p>© {new Date().getFullYear()} Berlin Döner</p>
         <p>
           Powered by{' '}
@@ -281,12 +286,11 @@ function HomePage() {
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             className="w-full h-full object-cover opacity-50"
-            poster="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b77bb50b97573fd31958.jpg"
+            poster="/img/hero-poster.webp"
           >
-            <source src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b91f9a0c1889e916cfaa.mov" type="video/mp4" />
-            <source src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b91f9a0c1889e916cfaa.mov" type="video/quicktime" />
+            <source src="/img/hero.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#0a0a0a]"></div>
         </div>
@@ -345,8 +349,11 @@ function HomePage() {
             {[...Array(15)].map((_, i) => (
               <div key={i} className="flex items-center gap-16">
                 <img 
-                  src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
+                  src="/img/logo.webp"
+              width={625}
+              height={250} 
                   alt="Berlin Döner" 
+                  loading="lazy"
                   className="h-8 md:h-12 w-auto brightness-0 invert opacity-90 flex-shrink-0"
                   referrerPolicy="no-referrer"
                 />
@@ -360,8 +367,11 @@ function HomePage() {
             {[...Array(15)].map((_, i) => (
               <div key={i} className="flex items-center gap-16">
                 <img 
-                  src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a095c1b50b97b8fac9cf06.png" 
+                  src="/img/logo.webp"
+              width={625}
+              height={250} 
                   alt="Berlin Döner" 
+                  loading="lazy"
                   className="h-8 md:h-12 w-auto brightness-0 invert opacity-90 flex-shrink-0"
                   referrerPolicy="no-referrer"
                 />
@@ -412,7 +422,11 @@ function HomePage() {
           <div className="relative order-1 md:order-2">
             <div className="aspect-[4/5] md:aspect-auto overflow-hidden rounded-2xl">
               <img 
-                src="https://assets.cdn.filesafe.space/1FYpgqYgXr6SzFnCzKew/media/69a0b8d2e545dde79cf25ca6.jpg" 
+                src="/img/doner.webp"
+                width={1200}
+                height={1200}
+                loading="lazy"
+                decoding="async" 
                 alt="Fresh Döner" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 referrerPolicy="no-referrer"
@@ -463,7 +477,7 @@ function HomePage() {
                   <span className="text-gray-400 uppercase text-xs md:text-sm tracking-widest">Måndag - Söndag</span>
                   <span className="text-lg md:text-xl font-black">11:00 – 22:00</span>
                 </div>
-                <p className="text-xs md:text-sm text-gray-500 italic mt-4">
+                <p className="text-xs md:text-sm text-gray-400 italic mt-4">
                   * Vi har öppet alla dagar i veckan för att servera dig Linköpings bästa döner.
                 </p>
               </div>
@@ -477,7 +491,7 @@ function HomePage() {
                 <Mail size={24} />
               </div>
               <div>
-                <p className="text-xs md:text-sm uppercase font-bold opacity-80">Frågor eller funderingar?</p>
+                <p className="text-xs md:text-sm uppercase font-bold">Frågor eller funderingar?</p>
                 <p className="text-lg md:text-xl font-black tracking-tight">info@berlindoner.se</p>
               </div>
             </div>
@@ -922,6 +936,8 @@ function MenuPage() {
                               <img 
                                 src={item.image} 
                                 alt={item.name} 
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                                 referrerPolicy="no-referrer"
                               />
@@ -989,6 +1005,8 @@ function GallerySection() {
                 <img 
                   src={src} 
                   alt={`Gallery ${i}`} 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
@@ -1003,6 +1021,8 @@ function GallerySection() {
                 <img 
                   src={src} 
                   alt={`Gallery ${i}`} 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
